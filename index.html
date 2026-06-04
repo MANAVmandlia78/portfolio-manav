@@ -38,6 +38,13 @@
       --glass:        rgba(253,246,238,0.72);
       --glass-border: rgba(255,248,235,0.8);
       --shadow:       rgba(180,100,60,0.12);
+       --blob-pink: rgba(255, 180, 210, 0.55);
+       --blob-blue: rgba(160, 200, 255, 0.5);
+       --blob-yellow: rgba(255, 230, 130, 0.5);
+       --blob-purple: rgba(200, 170, 255, 0.45);
+       --dark: #111;
+       --mid: #555;
+       --light: #f5f4f0;
     }
 
     html {
@@ -54,6 +61,282 @@
       backface-visibility: hidden;
     }
 
+ /* ── Blob background ── */
+  .blob-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: drift 14s ease-in-out infinite alternate;
+  }
+  .b1 { width: 520px; height: 520px; background: var(--blob-pink);   top: -120px; left: -80px;  animation-delay: 0s; }
+  .b2 { width: 420px; height: 420px; background: var(--blob-blue);   top: 40%;   right: -100px; animation-delay: -4s; }
+  .b3 { width: 360px; height: 360px; background: var(--blob-yellow); bottom: 0;  left: 20%;     animation-delay: -8s; }
+  .b4 { width: 300px; height: 300px; background: var(--blob-purple); top: 55%;  left: -60px;   animation-delay: -6s; }
+ 
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(30px, -40px) scale(1.06); }
+    100% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+ 
+  /* ── Page wrapper ── */
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 80px 60px 120px;
+    margin: 0 auto;
+  }
+ 
+  /* ── Section label ── */
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1.5px;
+    background: var(--mid);
+  }
+ 
+  /* ── Giant headline ── */
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(72px, 10vw, 140px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: var(--dark);
+    margin-bottom: 12px;
+    position: relative;
+  }
+ 
+  /* Row that mixes text + circular image cutout */
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.12em;
+    white-space: nowrap;
+  }
+ 
+  /* Circular image that "replaces" a letter */
+  .letter-img {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+    top: 0.04em;
+  }
+  .letter-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Sizes match the capital letter height */
+  .sz-lg { width: 0.72em; height: 0.72em; }  /* for ~130px font */
+  .sz-md { width: 0.72em; height: 0.72em; }
+ 
+  /* Small badge pill inside headline row */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--dark);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(10px, 1.2vw, 14px);
+    font-weight: 400;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    margin-left: 0.18em;
+    vertical-align: middle;
+    position: relative;
+    top: -0.08em;
+  }
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #6dffb3;
+    flex-shrink: 0;
+  }
+ 
+  /* Subtitle row */
+  .subtitle-row {
+    margin-top: 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .subtitle-text {
+    font-size: clamp(15px, 1.4vw, 18px);
+    color: #666;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 440px;
+  }
+  .subtitle-count {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1;
+    opacity: 0.12;
+    letter-spacing: -0.04em;
+  }
+ 
+  /* ── Project list ── */
+  .projects-list {
+    margin-top: 80px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
+ 
+  .project-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 68px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    cursor: pointer;
+    overflow: hidden;
+    transition: padding-left 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+ 
+  .project-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.03);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .project-item:hover::before { opacity: 1; }
+  .project-item:hover { padding-left: 12px; }
+ 
+  .project-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    z-index: 1;
+  }
+ 
+  .project-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 0.1em;
+    min-width: 28px;
+  }
+ 
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 56px);
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+  .project-item:hover .project-name { color: #222; }
+ 
+  .project-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+ 
+  .project-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+ 
+  .project-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #888;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  .project-item:hover .project-arrow {
+    background: var(--dark);
+    border-color: var(--dark);
+    color: #fff;
+    transform: rotate(45deg);
+  }
+ 
+  /* ── Floating image preview ── */
+  .preview-img {
+    position: fixed;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transform: scale(3) rotate(-45deg);
+    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+    will-change: transform;
+  }
+  .preview-img.visible {
+    opacity: 1;
+    transform: scale(1) rotate(-25deg);
+  }
+  .preview-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Placeholder colour when no real image yet */
+  .preview-img .preview-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
     /* ══════════════════════════════════════
        HOME SECTION
     ══════════════════════════════════════ */
@@ -1606,6 +1889,494 @@ track.appendChild(makeRow());
   </div>
 </div>
 </section>
+<!-- Gradient blob background -->
+<!-- Gradient blob background -->
+<div class="blob-scene" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+ 
+<div class="page">
+ 
+  <!-- Section label -->
+  <p class="section-label">Selected Work</p>
+ 
+  <!-- Giant typographic headline with image cutouts -->
+  <h1 class="hero-title">
+    <!-- Row 1: MY PR  [image O]  JECTS -->
+    <div class="title-row">
+      <span>MY&nbsp;PR</span>
+      <span class="letter-img sz-lg">
+        <!-- Replace src with your own image -->
+        <img src="spidy.jpg" alt="" onerror="this.parentElement.style.background='#ddd';this.style.display='none'">
+      </span>
+      <span>JECTS</span>
+    </div>
+ 
+    <!-- Row 2:  &amp; W  [image O]  RK -->
+    <div class="title-row">
+      <span>&amp;&nbsp;W</span>
+      <span class="letter-img sz-lg">
+        <!-- Replace src with your own image -->
+        <img src="cat.jpg" alt="" onerror="this.parentElement.style.background='#c9d8ee';this.style.display='none'">
+      </span>
+      <span>RK</span>
+      <span class="badge-pill">
+        <span class="badge-dot"></span>
+        Available for hire
+      </span>
+    </div>
+  </h1>
+ 
+  <!-- Subtitle row -->
+  <div class="subtitle-row">
+    <p class="subtitle-text">
+      A curated collection of digital experiences — from brand identities and interactive interfaces to full-stack products shipped with care.
+    </p>
+    <span class="subtitle-count">06</span>
+  </div>
+ 
+  <!-- Project list -->
+  <div class="projects-list">
+ 
+    <div class="project-item" data-preview="preview-1">
+      <div class="project-left">
+        <span class="project-number">01</span>
+        <span class="project-name">WaveTUNE - Music website</span>
+      </div>
+      <div class="project-right">
+        <span class="project-tag">UI / Brand</span>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+ 
+    <div class="project-item" data-preview="preview-2">
+      <div class="project-left">
+        <span class="project-number">02</span>
+        <span class="project-name">Dashboard & Analytics</span>
+      </div>
+      <div class="project-right">
+        <span class="project-tag">Web App</span>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+ 
+    <div class="project-item" data-preview="preview-3">
+      <div class="project-left">
+        <span class="project-number">03</span>
+        <span class="project-name">Commerce Experience</span>
+      </div>
+      <div class="project-right">
+        <span class="project-tag">Mobile</span>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+ 
+    <div class="project-item" data-preview="preview-4">
+      <div class="project-left">
+        <span class="project-number">04</span>
+        <span class="project-name">Interactive Campaign</span>
+      </div>
+      <div class="project-right">
+        <span class="project-tag">Motion</span>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+ 
+    <div class="project-item" data-preview="preview-5">
+      <div class="project-left">
+        <span class="project-number">05</span>
+        <span class="project-name">SaaS Onboarding</span>
+      </div>
+      <div class="project-right">
+        <span class="project-tag">Product</span>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+ 
+    <div class="project-item" data-preview="preview-6">
+      <div class="project-left">
+        <span class="project-number">06</span>
+        <span class="project-name">Immersive Portfolio</span>
+      </div>
+      <div class="project-right">
+        <span class="project-tag">3D / Web</span>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+</div><!-- end .page -->
+ 
+<!-- Floating image previews — one per project -->
+<!-- Replace src values with your actual project images -->
+<div class="preview-img" id="preview-1">
+  <img src="project-1.png" alt="Studio Identity">
+</div>
+ 
+<div class="preview-img" id="preview-2">
+  <img src="project-2.jpg" alt="Dashboard"
+    onerror="this.style.display='none'">
+  <div class="preview-placeholder" style="background:linear-gradient(135deg,#c0d8f5,#d5edf5);position:absolute;inset:0">Dashboard</div>
+</div>
+ 
+<div class="preview-img" id="preview-3">
+  <img src="project-3.jpg" alt="Commerce"
+    onerror="this.style.display='none'">
+  <div class="preview-placeholder" style="background:linear-gradient(135deg,#fde8c0,#fdf5c0);position:absolute;inset:0">Commerce</div>
+</div>
+ 
+<div class="preview-img" id="preview-4">
+  <img src="project-4.jpg" alt="Campaign"
+    onerror="this.style.display='none'">
+  <div class="preview-placeholder" style="background:linear-gradient(135deg,#c0f5d8,#c0f0f5);position:absolute;inset:0">Campaign</div>
+</div>
+ 
+<div class="preview-img" id="preview-5">
+  <img src="project-5.jpg" alt="SaaS"
+    onerror="this.style.display='none'">
+  <div class="preview-placeholder" style="background:linear-gradient(135deg,#e8c0f5,#c0c8f5);position:absolute;inset:0">SaaS Onboarding</div>
+</div>
+ 
+<div class="preview-img" id="preview-6">
+  <img src="project-6.jpg" alt="Portfolio"
+    onerror="this.style.display='none'">
+  <div class="preview-placeholder" style="background:linear-gradient(135deg,#111,#333);position:absolute;inset:0;color:rgba(255,255,255,0.5)">Immersive Portfolio</div>
+</div>
+<script>
+  const items = document.querySelectorAll('.project-item');
+  let activePreview = null;
+  let mouseX = 0, mouseY = 0;
+  let raf;
+ 
+  // Smoothly follow cursor
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (activePreview) positionPreview(activePreview);
+  });
+ 
+  function positionPreview(el) {
+    const offset = 24;
+    let x = mouseX + offset;
+    let y = mouseY - el.offsetHeight / 2;
+    // Keep within viewport
+    if (x + el.offsetWidth > window.innerWidth - 20) x = mouseX - el.offsetWidth - offset;
+    if (y < 20) y = 20;
+    if (y + el.offsetHeight > window.innerHeight - 20) y = window.innerHeight - el.offsetHeight - 20;
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+  }
+ 
+  items.forEach(item => {
+    const previewId = item.dataset.preview;
+    const preview = document.getElementById(previewId);
+ 
+    item.addEventListener('mouseenter', () => {
+      // Hide any currently active preview
+      if (activePreview && activePreview !== preview) {
+        activePreview.classList.remove('visible');
+      }
+      activePreview = preview;
+      positionPreview(preview);
+      // Small delay so position is set before fade-in
+      requestAnimationFrame(() => preview.classList.add('visible'));
+    });
+ 
+    item.addEventListener('mouseleave', () => {
+      preview.classList.remove('visible');
+      activePreview = null;
+    });
+  });
+</script> 
+<section class="contact-section">
+ 
+  <p class="contact-label">Get in Touch</p>
+ 
+  <div class="contact-grid">
+ 
+    <!-- Left: photo -->
+    <div class="contact-image-wrap">
+      <img src="boy.jpg" alt="Contact photo">
+      <div class="contact-img-tag">
+        <span class="contact-img-tag-dot"></span>
+        Open to opportunities
+      </div>
+    </div>
+ 
+    <!-- Right: form -->
+    <div class="contact-right">
+      <h2 class="contact-heading">Let's work<br>together.</h2>
+      <p class="contact-sub">Have a project in mind or just want to say hello? Drop me a message and I'll get back to you.</p>
+ 
+      <form class="contact-form" onsubmit="return false;">
+ 
+        <div class="form-row">
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" type="text" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" type="email" placeholder="your@email.com">
+          </div>
+        </div>
+ 
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" placeholder="Tell me about your project…"></textarea>
+        </div>
+ 
+        <div class="submit-row">
+          <button class="btn-submit" type="submit">
+            Send Message
+            <span class="btn-arrow">↗</span>
+          </button>
+          <span class="form-note">Usually replies within 24h</span>
+        </div>
+ 
+      </form>
+    </div>
+ 
+  </div>
+ 
+</section>
+<!-- ════════════════════════════════
+     CONTACT SECTION
+════════════════════════════════ -->
+<style>
+  /* ── Contact section ── */
+  .contact-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 120px 60px 140px;
+  }
+ 
+  .contact-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+  .contact-label::before {
+    content: '';
+    width: 28px;
+    height: 1.5px;
+    background: #888;
+  }
+ 
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+ 
+  /* ── Left: image ── */
+  .contact-image-wrap {
+    position: relative;
+  }
+ 
+  .contact-image-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -16px -16px 16px 16px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 24px;
+    z-index: 0;
+  }
+ 
+  .contact-image-wrap img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+    filter: saturate(0.95);
+  }
+ 
+  /* Floating tag on the image */
+  .contact-img-tag {
+    position: absolute;
+    z-index: 2;
+    bottom: 28px;
+    left: 28px;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .contact-img-tag-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #6dffb3;
+    flex-shrink: 0;
+  }
+ 
+  /* ── Right: form ── */
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+ 
+  .contact-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #111;
+    margin-bottom: 16px;
+  }
+ 
+  .contact-sub {
+    font-size: 15px;
+    color: #888;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    max-width: 360px;
+  }
+ 
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+ 
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+ 
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+ 
+  .field label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #999;
+  }
+ 
+  .field input,
+  .field textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #111;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 14px 18px;
+    outline: none;
+    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    resize: none;
+    width: 100%;
+  }
+ 
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: #bbb;
+  }
+ 
+  .field input:focus,
+  .field textarea:focus {
+    border-color: #111;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+  }
+ 
+  .field textarea {
+    height: 140px;
+    line-height: 1.6;
+  }
+ 
+  /* Submit button */
+  .submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+ 
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #111;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px 30px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.25s ease, transform 0.25s ease, gap 0.25s ease;
+  }
+  .btn-submit:hover {
+    background: #333;
+    transform: translateY(-2px);
+    gap: 16px;
+  }
+  .btn-arrow {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+  }
+  .btn-submit:hover .btn-arrow { transform: translateX(3px) translateY(-3px); }
+ 
+  .form-note {
+    font-size: 12px;
+    color: #bbb;
+    font-weight: 300;
+  }
+ 
+  /* Responsive */
+  @media (max-width: 860px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    .contact-image-wrap { max-width: 400px; margin: 0 auto; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-section { padding: 80px 24px 100px; }
+  }
+</style>
+ 
+</div>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
