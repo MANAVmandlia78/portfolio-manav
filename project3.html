@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --orange: #E8722A;
+  --bg: #0c0c0e;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ══════════════════════════════════════════
+   EXACT BACKGROUND FROM REFERENCE IMAGE
+   - Deep near-black base #0c0c0e
+   - Purple/mauve blob: top-left, diffuse
+   - Warm amber/yellow glow: center-left, mid-height (desk lamp warmth)
+   - Cool blue-white haze: far right edge, mid-height
+   - Subtle grid/dot texture overlay
+══════════════════════════════════════════ */
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Purple/mauve blob — top left */
+.bg-layer::before {
+  content: '';
+  position: absolute;
+  width: 55vw;
+  height: 55vh;
+  top: -12vh;
+  left: -10vw;
+  background: radial-gradient(ellipse at 40% 40%,
+    rgba(110, 60, 160, 0.38) 0%,
+    rgba(80, 40, 120, 0.22) 35%,
+    rgba(50, 20, 80, 0.08) 65%,
+    transparent 100%
+  );
+  filter: blur(40px);
+}
+
+/* Warm amber/yellow lamp glow — center-left, middle */
+.bg-layer::after {
+  content: '';
+  position: absolute;
+  width: 38vw;
+  height: 52vh;
+  top: 28vh;
+  left: 14vw;
+  background: radial-gradient(ellipse at 50% 30%,
+    rgba(200, 160, 60, 0.28) 0%,
+    rgba(180, 130, 40, 0.16) 30%,
+    rgba(140, 100, 20, 0.07) 60%,
+    transparent 100%
+  );
+  filter: blur(50px);
+}
+
+/* Blue-white haze — right edge */
+.bg-right-haze {
+  position: absolute;
+  width: 30vw;
+  height: 60vh;
+  top: 15vh;
+  right: -4vw;
+  background: radial-gradient(ellipse at 60% 50%,
+    rgba(180, 210, 255, 0.13) 0%,
+    rgba(140, 180, 240, 0.07) 40%,
+    transparent 75%
+  );
+  filter: blur(60px);
+}
+
+/* Dot grid texture overlay */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 1;
+}
+
+/* Noise grain */
+.bg-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+}
+
+/* ══════════════════════════════════════════
+   CORNER BRACKETS (like reference image)
+══════════════════════════════════════════ */
+.corner-tl, .corner-tr, .corner-bl, .corner-br {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-color: rgba(255,255,255,0.18);
+  border-style: solid;
+  z-index: 5;
+  pointer-events: none;
+}
+.corner-tl { top: 20px; left: 20px; border-width: 1px 0 0 1px; }
+.corner-tr { top: 20px; right: 20px; border-width: 1px 1px 0 0; }
+.corner-bl { bottom: 20px; left: 20px; border-width: 0 0 1px 1px; }
+.corner-br { bottom: 20px; right: 20px; border-width: 0 1px 1px 0; }
+
+/* ══════════════════════════════════════════
+   PAGE LAYOUT
+══════════════════════════════════════════ */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.055);
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--orange);
+  display: block;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-back {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: rgba(255,255,255,0.75); }
+.nav-back svg { stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+.nav-index {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.22);
+  letter-spacing: 0.08em;
+}
+
+/* ══════════════════════════════════════════
+   HERO — FULL-WIDTH TITLE (Image 2 style)
+══════════════════════════════════════════ */
+.hero {
+  padding: 52px 40px 0;
+}
+
+.hero-left { width: 100%; }
+
+.project-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.project-eyebrow span {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* ── BIG TITLE — Anton, full bleed, white on dark ── */
+.project-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(72px, 11.5vw, 176px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  user-select: none;
+}
+
+/* Each line is a flex row so the image circle sits inline */
+.title-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  gap: 0;
+}
+
+/* The circular image placeholder — replaces an "O" letter */
+.title-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* Size synced to cap-height of current font-size */
+  width:  clamp(62px, 9.5vw, 148px);
+  height: clamp(62px, 9.5vw, 148px);
+  margin: 0 2px;
+  position: relative;
+  top: clamp(2px, 0.3vw, 5px);
+  background: rgba(255,255,255,0.08);
+  border: 2px solid rgba(255,255,255,0.15);
+}
+.title-circle img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+/* placeholder text shown when no img yet */
+.title-circle-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(7px, 0.75vw, 11px);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.3;
+  color: rgba(255,255,255,0.3);
+  padding: 6px;
+}
+
+/* "AVAILABLE FOR HIRE" pill — sits beside the title on line 2 */
+.hire-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(8px, 0.75vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 100px;
+  padding: clamp(5px,0.5vw,9px) clamp(12px,1.2vw,22px);
+  margin-left: clamp(12px, 1.5vw, 28px);
+  flex-shrink: 0;
+  align-self: center;
+  position: relative;
+  top: clamp(2px, 0.3vw, 5px);
+}
+.hire-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Hero sub-line: project name + tag below the giant title */
+.hero-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+  padding-bottom: 4px;
+}
+.hero-project-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 3vh;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.04em;
+}
+.hero-project-tag {
+  font-size: 3vh;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 1px solid rgba(232,114,42,0.35);
+  padding: 3px 11px;
+  border-radius: 2px;
+}
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.5);
+}
+.status-dot::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+/* ══════════════════════════════════════════
+   VIDEO SECTION
+══════════════════════════════════════════ */
+.video-section {
+  padding: 48px 56px 0;
+  position: relative;
+}
+
+.video-outer {
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #080808;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Corner bracket accents on video */
+.vc { position: absolute; width: 16px; height: 16px; border-color: var(--orange); border-style: solid; z-index: 2; pointer-events: none; }
+.vc-tl { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.vc-tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
+.vc-bl { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
+.vc-br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* Scan-line subtle overlay */
+.video-outer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+video, .video-outer iframe {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+  position: absolute;
+  inset: 0;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: rgba(255,255,255,0.18);
+  text-align: center;
+  padding: 40px;
+  z-index: 1;
+}
+.play-ring {
+  width: 64px; height: 64px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.play-ring svg { stroke: rgba(255,255,255,0.25); fill: none; stroke-width: 1.5; }
+.video-placeholder p {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+.video-placeholder small {
+  font-size: 10px;
+  color: rgba(255,255,255,0.1);
+  letter-spacing: 0.04em;
+}
+
+/* Video label bar */
+.video-label-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0;
+}
+.video-label-bar span {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ══════════════════════════════════════════
+   CONTENT SECTION — 3 PANELS
+══════════════════════════════════════════ */
+.content-section {
+  padding: 56px 56px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  border-top: 1px solid rgba(255,255,255,0.055);
+  margin-top: 48px;
+  position: relative;
+}
+
+/* Divider lines between panels */
+.content-section::before,
+.content-section::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.055);
+}
+.content-section::before { left: calc(56px + 33.333%); }
+.content-section::after { left: calc(56px + 66.666%); }
+
+.panel {
+  padding: 0 40px 0 0;
+}
+.panel:not(:first-child) {
+  padding: 0 40px 0 40px;
+}
+.panel:last-child {
+  padding: 0 0 0 40px;
+}
+
+.panel-num {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel-num::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(232,114,42,0.2);
+}
+
+.panel-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 14px;
+}
+
+.panel-text {
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.78;
+  color: rgba(255,255,255,0.42);
+}
+
+/* ══════════════════════════════════════════
+   TECH STACK ROW
+══════════════════════════════════════════ */
+.stack-section {
+  padding: 0 56px 56px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.055);
+  padding-top: 32px;
+}
+
+.stack-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-right: 8px;
+}
+
+.stack-tag {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 5px 14px;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+.stack-tag:hover {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* ══════════════════════════════════════════
+   CTA LINKS ROW
+══════════════════════════════════════════ */
+.cta-section {
+  padding: 0 56px 80px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 2px;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.cta-btn svg { stroke: currentColor; fill: none; stroke-width: 1.8; width: 13px; height: 13px; flex-shrink: 0; }
+
+.cta-primary {
+  background: var(--orange);
+  color: #fff;
+  border: 1px solid var(--orange);
+}
+.cta-primary:hover {
+  background: transparent;
+  color: var(--orange);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.cta-secondary:hover {
+  color: rgba(255,255,255,0.8);
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* ══════════════════════════════════════════
+   PAGE ENTRY ANIMATIONS
+══════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+nav          { animation: fadeIn 0.5s ease both; animation-delay: 0s; }
+.hero-left   { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.1s; }
+.video-section { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.25s; }
+.content-section { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.35s; }
+.stack-section { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.45s; }
+.cta-section { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.5s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav, .hero, .video-section, .content-section, .stack-section, .cta-section { padding-left: 24px; padding-right: 24px; }
+  .content-section { grid-template-columns: 1fr; }
+  .content-section::before, .content-section::after { display: none; }
+  .panel, .panel:not(:first-child), .panel:last-child { padding: 0 0 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .title-line { white-space: normal; flex-wrap: wrap; }
+}
+@media (max-width: 560px) {
+  nav, .hero, .video-section, .content-section, .stack-section, .cta-section { padding-left: 16px; padding-right: 16px; }
+  .project-title { font-size: 58px; }
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND LAYERS (exact reference match) -->
+<div class="bg-layer">
+  <div class="bg-right-haze"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+</div>
+
+<!-- CORNER BRACKETS -->
+<div class="corner-tl"></div>
+<div class="corner-tr"></div>
+<div class="corner-bl"></div>
+<div class="corner-br"></div>
+
+<div class="page">
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-label">Portfolio &nbsp;·&nbsp; Projects</div>
+    <div class="nav-right">
+      <span class="nav-index">01 / 06</span>
+      <a class="nav-back" href="#">
+        <svg viewBox="0 0 16 16" width="14" height="14"><line x1="14" y1="8" x2="2" y2="8"/><polyline points="6 4 2 8 6 12"/></svg>
+        All Projects
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="project-eyebrow"><span></span>Featured Project</div>
+
+      <!--
+        ══════════════════════════════════════════════════════
+        HOW TO EDIT THE TITLE:
+        - Each .title-line is one visual row
+        - The .title-circle is the circular image placeholder
+          that replaces the "O" in a word (like in the reference)
+        - To add your image: replace <span class="title-circle-hint">
+          with <img src="your-photo.jpg" alt="">  inside .title-circle
+        - Change the text around each circle freely
+        ══════════════════════════════════════════════════════
+      -->
+      <h1 class="project-title">
+
+        <!-- LINE 1 — e.g. "MY PR[O]JECT" -->
+        <div class="title-line">
+          MY&nbsp;PR<div class="title-circle">
+            <img src="spidy.jpg" alt="">
+          </div>JECT
+        </div>
+
+        <!-- LINE 2 — e.g. "& W[O]RK" + hire pill -->
+        <div class="title-line">
+          &amp;&nbsp;W<div class="title-circle" style="background:rgba(255,255,255,0.06);">
+            <img src="cat.jpg" alt="">
+          </div>RK
+        </div>
+
+      </h1>
+
+      <!-- Project name + type tag sits just below the giant title -->
+      <div class="hero-sub-row">
+        <span class="hero-project-name">Bhagavad Gita App – Flutter Project</span>
+        <span class="hero-project-tag">Mobile App</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VIDEO ── -->
+  <section class="video-section" style="padding: 36px 40px 0;">
+    <div class="video-outer">
+      <div class="vc vc-tl"></div>
+      <div class="vc vc-tr"></div>
+      <div class="vc vc-bl"></div>
+      <div class="vc vc-br"></div>
+
+  
+<iframe width="925" height="444" src="https://www.youtube.com/embed/4y9Mc3j06Sw" title="🎵 WaveTune – Music Streaming Platform 🎵" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+     
+    <div class="video-label-bar">
+      <span>Demo / Walkthrough</span>
+      <span>16 : 9</span>
+    </div>
+  </section>
+<!-- ── 3-PANEL DESCRIPTION ── -->
+<section class="content-section" style="padding-left:40px;padding-right:40px;">
+<div class="panel">
+  <p class="panel-num">01</p>
+  <h2 class="panel-heading">Overview</h2>
+  <p class="panel-text">
+    The Bhagavad Gita App is a Flutter-based mobile application designed to make the teachings of the Bhagavad Gita accessible in a modern and interactive way. The app enables users to read all 18 chapters offline, listen to chapter audio, bookmark favorite verses, explore important characters from the Mahabharata, and interact with an AI-powered Gita GPT assistant for spiritual guidance and insights. By combining technology with spirituality, the app provides a convenient platform for learning, reflection, and personal growth.
+  </p>
+</div>
+
+<div class="panel">
+  <p class="panel-num">02</p>
+  <h2 class="panel-heading">My Role</h2>
+  <p class="panel-text">
+    I independently designed and developed the complete application using Flutter and Dart. I implemented offline storage for chapters and verses, integrated audio playback functionality, built a bookmarking system, and created informative character pages. I also integrated an AI-powered Gita GPT feature that allows users to ask questions and receive responses inspired by the teachings of the Bhagavad Gita. Throughout development, I focused on creating a clean user interface, smooth navigation, and an engaging user experience.
+  </p>
+</div>
+
+<div class="panel">
+  <p class="panel-num">03</p>
+  <h2 class="panel-heading">Outcome</h2>
+  <p class="panel-text">
+    The project successfully transformed the timeless wisdom of the Bhagavad Gita into an accessible digital experience for modern users. It enhanced my skills in Flutter development, local database management, audio integration, state management, and AI-powered applications. More importantly, it demonstrated how technology can preserve and promote spiritual knowledge, making ancient teachings easier to explore and understand for people of all ages.
+  </p>
+</div>
+
+</section>
+
+  <!-- ── TECH STACK ── -->
+  <div class="stack-section" style="padding-left:40px;padding-right:40px;">
+    <span class="stack-label">Stack</span>
+    <!-- Edit or add/remove tags as needed -->
+    <span class="stack-tag">REACT</span>
+    <span class="stack-tag">NODE</span>
+    <span class="stack-tag">Express</span>
+    <span class="stack-tag">MYSQL</span>
+    <span class="stack-tag">WEBRTC</span>
+    <span class="stack-tag">SOCKET.IO</span>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
