@@ -59,7 +59,27 @@
       text-rendering: optimizeSpeed;
       -webkit-font-smoothing: antialiased;
       backface-visibility: hidden;
+      margin: 0;
+      padding: 0;
     }
+@media (max-width: 768px) {
+    body {
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 13px;
+    }
+}
+    
+
 
     .projects-list a {
     text-decoration: none;
@@ -342,6 +362,139 @@
     text-transform: uppercase;
     color: rgba(255,255,255,0.6);
   }
+
+  /* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+
+  .page{
+    padding: 60px 30px 100px;
+  }
+
+  .hero-title{
+    font-size: clamp(56px, 9vw, 100px);
+  }
+
+  .project-item{
+    padding: 45px 0;
+  }
+
+  .project-name{
+    font-size: clamp(24px, 3.5vw, 42px);
+  }
+
+  .preview-img{
+    display: none;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  .page{
+    padding: 40px 20px 80px;
+  }
+
+  .section-label{
+    margin-bottom: 20px;
+  }
+
+  .hero-title{
+    font-size: clamp(42px, 11vw, 70px);
+    line-height: 1;
+  }
+
+  .title-row{
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .badge-pill{
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .subtitle-row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .subtitle-count{
+    display: none;
+  }
+
+  .projects-list{
+    margin-top: 50px;
+  }
+
+  .project-item{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 35px 0;
+  }
+
+  .project-left{
+    gap: 15px;
+  }
+
+  .project-right{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .project-name{
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .project-tag{
+    font-size: 12px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+
+  .page{
+    padding: 30px 16px 60px;
+  }
+
+  .hero-title{
+    font-size: 36px;
+  }
+
+  .project-name{
+    font-size: 22px;
+  }
+
+  .project-number{
+    font-size: 10px;
+  }
+
+  .project-arrow{
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .subtitle-text{
+    font-size: 14px;
+  }
+
+  .letter-img{
+    width: 0.65em;
+    height: 0.65em;
+  }
+}
     /* ══════════════════════════════════════
        HOME SECTION
     ══════════════════════════════════════ */
@@ -353,6 +506,14 @@
       overflow: hidden;
       background: #d9a020;
     }
+
+    @media (max-width: 768px) {
+    #home {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+}
 
     .bg-layer {
       position: absolute; inset: 0;
@@ -380,6 +541,18 @@
       transform: translateZ(0);
       will-change: transform;
     }
+
+    @media (max-width: 768px) {
+    .intro-left {
+        display: none !important;
+    }
+
+    .intro-right {
+        display: none !important;
+    }
+
+    
+}
 
     .vignette {
       position: absolute; inset: 0; z-index: 1;
@@ -1185,6 +1358,8 @@ model-viewer{
 .ca-tl{top:0;left:0;border-top:1px solid rgba(255,255,255,0.12);border-left:1px solid rgba(255,255,255,0.12);border-radius:12px 0 0 0;}
 .ca-br{bottom:0;right:0;border-bottom:1px solid rgba(255,255,255,0.12);border-right:1px solid rgba(255,255,255,0.12);border-radius:0 0 12px 0;}
 
+
+
 </style>
 </head>
 <body>
@@ -1233,8 +1408,6 @@ model-viewer{
   <div class="intro-right">
     <p>I bring innovative ideas to life through<br>my designs and collaborations.</p>
   </div>
-
-  <div class="footer-left">© Manav 2024</div>
 
   <div class="scroll-hint" onclick="document.getElementById('skills-marquee')?.scrollIntoView({behavior:'smooth'})">
     (Scroll down)
@@ -1403,12 +1576,23 @@ model-viewer{
         </div>
         <h1 class="heading">Hey, I'm<br><span class="name-line">Manav</span></h1>
         <span class="wc-underline"></span>
-        <div class="text-panel">
-          <p class="para">I'm a fullstack developer who loves turning ideas into meaningful digital experiences.</p>
-          <p class="para">I enjoy building projects that blend creativity with code — crafting immersive, user-friendly products that feel alive.</p>
-          <p class="para">I'm also passionate about research and recently published a paper on "<a href="#">Virtual Acoustic Scene Reconstruction</a>", exploring the intersection of audio, environment, and technology.</p>
-          <p class="para">When I'm not coding, you'll find me listening to music, exploring aesthetics, or capturing moments through my lens.</p>
-        </div>
+      <div class="text-panel">
+  <p class="para">
+    I'm a Full-Stack Developer specializing in building scalable web and mobile applications using React, Node.js, Express.js, MongoDB, MySQL, Flutter, and modern JavaScript technologies.
+  </p>
+
+  <p class="para">
+    My experience spans frontend development, backend architecture, database design, real-time applications, machine learning, and AI-powered solutions, with a focus on creating products that solve real-world problems.
+  </p>
+
+  <p class="para">
+    I have published a research paper on "<a href="#">Virtual Acoustic Scene Reconstruction</a>", exploring computational approaches for immersive audio environment modeling.
+  </p>
+
+  <p class="para">
+    Outside of development, I enjoy listening to music, solving Rubik's Cubes and puzzles, and continuously exploring new technologies and frameworks.
+  </p>
+</div>
         <a href="YOUR_RESUME_PDF_LINK_HERE" class="resume-btn" download>
           <i class="fas fa-download"></i>
           Download Résumé
@@ -1839,11 +2023,11 @@ window.addEventListener('DOMContentLoaded', () => {
           <div class="skill-body-inner">
             <p class="skill-desc">Crafting performant, responsive interfaces with modern frameworks — from SPAs to micro-frontends, delivering pixel-perfect experiences.</p>
             <div class="tags">
+              <span class="tag">Javascript</span>
               <span class="tag">React.js</span>
-              <span class="tag">Angular</span>
               <span class="tag">Next.js</span>
               <span class="tag">TypeScript</span>
-              <span class="tag">Tailwind</span>
+              <span class="tag">Tailwind CSS</span>
               <span class="tag">HTML5 · CSS3</span>
             </div>
           </div>
@@ -1868,43 +2052,52 @@ window.addEventListener('DOMContentLoaded', () => {
             <p class="skill-desc">Designing robust APIs and microservices — from CMS platforms to complex business logic, building backends that scale effortlessly.</p>
             <div class="tags">
               <span class="tag">Node.js</span>
-              <span class="tag">Express</span>
-              <span class="tag">PostgreSQL</span>
-              <span class="tag">GraphQL</span>
-              <span class="tag">Docker</span>
-              <span class="tag">AWS</span>
+              <span class="tag">Express.js</span>
+              <span class="tag">WebRTC</span>
+              <span class="tag">Socket.IO</span>
+              <span class="tag">php</span>
+              <span class="tag">Laravel</span>
             </div>
           </div>
         </div>
         <div class="status-bar"><div class="status-fill"></div></div>
       </div>
+<div class="skill-row">
+  <span class="skill-corner-tr"></span>
+  <span class="skill-corner-bl"></span>
+  <div class="skill-bg-sweep"></div>
 
-      <div class="skill-row">
-        <span class="skill-corner-tr"></span>
-        <span class="skill-corner-bl"></span>
-        <div class="skill-bg-sweep"></div>
-        <div class="skill-header">
-          <div class="skill-header-left">
-            <div class="skill-number">03</div>
-            <div class="skill-title">DevOps</div>
-            <div class="skill-sub">CI/CD · Cloud · Infrastructure</div>
-          </div>
-          <div class="skill-icon"><i class="ti ti-rocket" aria-hidden="true"></i></div>
-        </div>
-        <div class="skill-body">
-          <div class="skill-body-inner">
-            <p class="skill-desc">Automating deployments and managing cloud infrastructure — from containerized pipelines to zero-downtime production releases.</p>
-            <div class="tags">
-              <span class="tag">GitHub Actions</span>
-              <span class="tag">Kubernetes</span>
-              <span class="tag">Terraform</span>
-              <span class="tag">Linux</span>
-              <span class="tag">Nginx</span>
-            </div>
-          </div>
-        </div>
-        <div class="status-bar"><div class="status-fill"></div></div>
+  <div class="skill-header">
+    <div class="skill-header-left">
+      <div class="skill-number">03</div>
+      <div class="skill-title">Databases</div>
+      <div class="skill-sub">SQL · NoSQL · Cloud Databases</div>
+    </div>
+    <div class="skill-icon">
+      <i class="ti ti-database" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="skill-body">
+    <div class="skill-body-inner">
+      <p class="skill-desc">
+        Designing efficient database architectures, optimizing queries, and managing structured and unstructured data to build scalable, reliable, and high-performance applications.
+      </p>
+
+      <div class="tags">
+        <span class="tag">MySQL</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">Supabase</span>
       </div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-fill"></div>
+  </div>
+</div>
 
     </div>
   </div>
@@ -2037,8 +2230,6 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
     </a>
-    
- 
   </div>
  
 </div><!-- end .page -->
