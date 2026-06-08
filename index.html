@@ -1358,6 +1358,126 @@ model-viewer{
 .ca-tl{top:0;left:0;border-top:1px solid rgba(255,255,255,0.12);border-left:1px solid rgba(255,255,255,0.12);border-radius:12px 0 0 0;}
 .ca-br{bottom:0;right:0;border-bottom:1px solid rgba(255,255,255,0.12);border-right:1px solid rgba(255,255,255,0.12);border-radius:0 0 12px 0;}
 
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+
+  .wrap{
+    flex-direction: column;
+  }
+
+  .left,
+  .right{
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 40px 30px;
+  }
+
+  .headline{
+    font-size: 72px;
+  }
+
+  .sub-headline{
+    max-width: 100%;
+  }
+
+  .model-stage{
+    width: 100%;
+    height: 50vh;
+    padding-bottom: 0;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  .wrap{
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .left,
+  .right{
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .headline{
+    font-size: 52px;
+    line-height: 0.95;
+  }
+
+  .sub-headline{
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .model-stage{
+    width: 100%;
+    height: 350px;
+  }
+
+  .skill-header{
+    padding: 18px 20px;
+  }
+
+  .skill-body-inner{
+    padding: 0 20px 20px;
+  }
+
+  .skill-title{
+    font-size: 22px;
+  }
+
+  .skill-sub{
+    font-size: 10px;
+  }
+
+  .skill-desc{
+    font-size: 12px;
+  }
+
+  .skill-icon{
+    transform: scale(0.9);
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+@media (max-width: 480px) {
+
+  .headline{
+    font-size: 42px;
+  }
+
+  .eyebrow{
+    font-size: 9px;
+  }
+
+  .model-stage{
+    height: 280px;
+  }
+
+  .skill-title{
+    font-size: 18px;
+  }
+
+  .tags{
+    gap: 4px;
+  }
+
+  .tag{
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+}
+
 
 
 </style>
