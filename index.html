@@ -2453,33 +2453,57 @@ window.addEventListener('DOMContentLoaded', () => {
       <h2 class="contact-heading">Let's work<br>together.</h2>
       <p class="contact-sub">Have a project in mind or just want to say hello? Drop me a message and I'll get back to you.</p>
  
-      <form class="contact-form" onsubmit="return false;">
- 
-        <div class="form-row">
-          <div class="field">
-            <label for="cf-name">Name</label>
-            <input id="cf-name" type="text" placeholder="Your name">
-          </div>
-          <div class="field">
-            <label for="cf-email">Email</label>
-            <input id="cf-email" type="email" placeholder="your@email.com">
-          </div>
-        </div>
- 
-        <div class="field">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" placeholder="Tell me about your project…"></textarea>
-        </div>
- 
-        <div class="submit-row">
-          <button class="btn-submit" type="submit">
-            Send Message
-            <span class="btn-arrow">↗</span>
-          </button>
-          <span class="form-note">Usually replies within 24h</span>
-        </div>
- 
-      </form>
+      <form
+  class="contact-form"
+  action="https://formsubmit.co/manavmandalia077@gmail.com"
+  method="POST">
+
+  <!-- FormSubmit Settings -->
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="New Portfolio Contact Form Message">
+  <input type="hidden" name="_template" value="table">
+
+  <div class="form-row">
+    <div class="field">
+      <label for="cf-name">Name</label>
+      <input
+        id="cf-name"
+        name="name"
+        type="text"
+        placeholder="Your name"
+        required>
+    </div>
+
+    <div class="field">
+      <label for="cf-email">Email</label>
+      <input
+        id="cf-email"
+        name="email"
+        type="email"
+        placeholder="your@email.com"
+        required>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="cf-message">Message</label>
+    <textarea
+      id="cf-message"
+      name="message"
+      placeholder="Tell me about your project…"
+      required></textarea>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-submit" type="submit">
+      Send Message
+      <span class="btn-arrow">↗</span>
+    </button>
+
+    <span class="form-note">Usually replies within 24h</span>
+  </div>
+
+</form>
     </div>
  
   </div>
